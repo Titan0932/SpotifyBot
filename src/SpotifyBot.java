@@ -4,6 +4,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.NoSuchElementException;
 
 import java.time.Duration;
 
@@ -29,7 +30,7 @@ public class SpotifyBot {
     }
 
 
-        public void automate() throws InterruptedException {
+        public boolean login() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver","C:\\Users\\User\\Downloads\\chrome\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.get("https://open.spotify.com/");
@@ -55,14 +56,29 @@ public class SpotifyBot {
 
         WebElement mainLoginBtn= driver.findElement(By.id("login-button"));
         mainLoginBtn.click();
+        Thread.sleep(4500);
 
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("jb9xD5ECTqKFK02qe3HZ")));
-        WebElement playlist= driver.findElement(By.className("jb9xD5ECTqKFK02qe3HZ"));
-        playlist.click();
+        try {
+            WebElement loginError= driver.findElement(By.className("Message-sc-15vkh7g-0"));
+        }
+        catch(NoSuchElementException  e){
+            System.out.println("No Error");
+            return true;
+        }
+            return false;
 
-        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("button[data-testid='play-button']")));
-        WebElement playBtn= driver.findElement(By.cssSelector("button[data-testid='play-button']"));
-        playBtn.click();
+
+//        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.className("jb9xD5ECTqKFK02qe3HZ")));
+//        WebElement playlist= driver.findElement(By.className("jb9xD5ECTqKFK02qe3HZ"));
+//        playlist.click();
+//
+//        wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.cssSelector("button[data-testid='play-button']")));
+//        WebElement playBtn= driver.findElement(By.cssSelector("button[data-testid='play-button']"));
+//        playBtn.click();
+
+    }
+
+    public void findSong(){
 
     }
 
