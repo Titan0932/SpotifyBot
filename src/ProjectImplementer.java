@@ -1,4 +1,5 @@
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -35,9 +36,9 @@ public class ProjectImplementer {
         Scanner searchScanner = new Scanner(System.in);
         String searchQuery = searchScanner.next();
         try{
-            bot1.findSong(searchQuery);
-//            bot1.findSong("something the beatles");
-
+            WebElement song= bot1.findSong(searchQuery);
+//            WebElement song= bot1.findSong("something the beatles");
+            bot1.playSong(song);
         }
         catch (Exception e){
             System.out.println("ERROR FINDING SONG");

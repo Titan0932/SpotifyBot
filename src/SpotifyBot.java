@@ -76,10 +76,15 @@ public class SpotifyBot {
         searchElem.sendKeys(searchQuery);
         Thread.sleep(2000);
         WebElement result= driver.findElement(By.cssSelector("[data-testid='top-result-card']"));
-//        Actions action = new Actions(driver);
-//        action.moveToElement(result).perform();
 
         return result;
+    }
+
+    public void playSong(WebElement songContainer){
+        Actions action = new Actions(driver);
+        action.moveToElement(songContainer).perform();
+        WebElement playButton= driver.findElement(By.cssSelector("[data-testid='play-button']"));
+        playButton.click();
     }
 
 
