@@ -9,7 +9,27 @@ import java.time.Duration;
 
 
 public class SpotifyBot {
-    public static void main(String[] args) throws InterruptedException {
+    private String username;
+    private String password;
+    private String searchQuery;
+    private Boolean rememberLogin;
+
+    public SpotifyBot(String username, String password, String searchQuery,boolean rememberLogin){
+        this.username=username;
+        this.password=password;
+        this.searchQuery= searchQuery;
+        this.rememberLogin= rememberLogin;
+    }
+    public SpotifyBot(String username, String password){
+        this(username, password, " ", false);
+    }
+
+    public SpotifyBot(String username, String password, boolean rememberLogin) {
+        this(username, password, " ", rememberLogin);
+    }
+
+
+        public void automate() throws InterruptedException {
         System.setProperty("webdriver.chrome.driver","C:\\Users\\User\\Downloads\\chrome\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
         driver.get("https://open.spotify.com/");
@@ -25,11 +45,11 @@ public class SpotifyBot {
 
         WebElement userNameTxt= driver.findElement(By.id("login-username"));
         WebElement userPasswordTxt= driver.findElement(By.id("login-password"));
-        userNameTxt.sendKeys("anjishrocks@yahoo.com");
-        userPasswordTxt.sendKeys("password");
+        userNameTxt.sendKeys(this.username);
+        userPasswordTxt.sendKeys(this.password);
         WebElement rememberCheckbox= driver.findElement(By.cssSelector("label[for='login-remember']> span"));  // what is needed to be clicked to change the checkbox value
         WebElement rememberCheckboxElem= driver.findElement(By.id("login-remember"));  //the checkbox element itself
-        if(rememberCheckboxElem.isSelected()==true){
+        if(rememberCheckboxElem.isSelected()==true && this.rememberLogin.equals(false)){
             rememberCheckbox.click();
         }
 
